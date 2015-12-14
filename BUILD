@@ -1,14 +1,3 @@
-java_binary(
-  name = "object_size",
-  create_executable = 0,
-  srcs = [
-    "java/blam/instrumentation/ObjectSize.java"
-  ],
-  deploy_manifest_lines = [
-    "Premain-Class: blam.instrumentation.ObjectSize"
-  ],
-)
-
 java_import(
   name = "jars",
   jars = [
@@ -30,10 +19,6 @@ java_library(
 java_binary(
   name = "blam",
   main_class = "blam.Driver",
-  resources = [":object_size_deploy.jar"],
-  jvm_flags = [
-    "-javaagent:bazel-bin/object_size_deploy.jar",
-  ],
   runtime_deps = [
     ":lib",
   ],

@@ -21,6 +21,16 @@ public class CompressedBitVector implements BitVector {
   }
 
   @Override
+  public int estimatedByteSize() {
+    return
+      8 + // object overhead for this object
+      4 + // this.firstIsZero
+      4 + // this.size
+      this.list.size() * (4 + 8) // Entry object overhead + size;
+      ;
+  }
+
+  @Override
   public int getSize() {
     return this.size;
   }
