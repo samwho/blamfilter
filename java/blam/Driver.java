@@ -16,14 +16,5 @@ class Driver {
     ch.setLevel(logLevel);
     log.addHandler(ch);
     log.setLevel(logLevel);
-
-    BlamFilter<CharSequence> blam =
-      new BlamFilter<>(Funnels.unencodedCharsFunnel(), 10000);
-
-    blam.setBit(0);
-    blam.setBit(1);
-
-    System.out.println(blam.numSetBits());
-    System.out.println(blam.toString());
   }
 }
