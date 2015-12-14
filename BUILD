@@ -1,31 +1,51 @@
 java_import(
-  name = "jars",
+  name = "benchmark_jars",
+  jars = [
+    "lib/bb.jar",
+    "lib/mt-13.jar",
+    "lib/jsci-core.jar",
+  ],
+)
+
+java_binary(
+  name = "benchmark",
+  main_class = "blam.benchmark.Driver",
+  srcs = glob(["java/blam/benchmark/*.java"]),
+  deps = [
+    ":benchmark_jars",
+    ":guava",
+    ":blam",
+  ],
+)
+
+java_import(
+  name = "guava",
   jars = [
     "lib/guava-19.0.jar",
   ],
 )
 
 java_library(
-  name = "lib",
+  name = "blam",
   srcs = glob([
     "java/blam/*.java",
     "java/blam/instrumentation/*.java"
   ]),
   deps = [
-    ":jars"
+    ":guava"
   ],
 )
 
 java_binary(
-  name = "blam",
+  name = "main",
   main_class = "blam.Driver",
   runtime_deps = [
-    ":lib",
+    ":blam",
   ],
 )
 
 java_import(
-  name = "test_jars",
+  name = "junit",
   jars = [
     "lib/hamcrest-all-1.3.jar",
     "lib/junit-4.12.jar",
@@ -37,8 +57,8 @@ java_test(
   srcs = glob(["javatests/blam/*.java"]),
   size = "small",
   deps = [
-    ":lib",
-    ":jars",
-    ":test_jars"
+    ":guava",
+    ":junit",
+    ":blam",
   ],
 )

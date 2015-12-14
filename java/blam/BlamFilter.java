@@ -7,7 +7,7 @@ import com.google.common.hash.Hashing;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
-class BlamFilter<T> {
+public class BlamFilter<T> {
   private static final Logger log = Logger.getGlobal();
 
   private BitVector bv;
