@@ -1,5 +1,7 @@
 package blam;
 
+import blam.instrumentation.ObjectSize;
+
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
 
@@ -16,5 +18,16 @@ class Driver {
     ch.setLevel(logLevel);
     log.addHandler(ch);
     log.setLevel(logLevel);
+
+    BlamFilter<CharSequence> blam =
+      new BlamFilter<>(Funnels.unencodedCharsFunnel(),
+          new CompressedBitVector(10000));
+
+    BlamFilter<CharSequence> bloom =
+      new BlamFilter<>(Funnels.unencodedCharsFunnel(),
+          new StandardBitVector(10000));
+
+    System.out.println(ObjectSize.get(blam));
+    System.out.println(ObjectSize.get(bloom));
   }
 }
